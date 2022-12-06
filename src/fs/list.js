@@ -11,6 +11,7 @@ const list = async () => {
 
   try {
     const files = await readdir(folderPath);
+    console.log(files);
   } catch (error) {
     if (error.errno === -4058) {
       throw new Error(ErrorMessageFileExist);
