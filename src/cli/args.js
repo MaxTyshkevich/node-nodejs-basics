@@ -5,9 +5,9 @@ const parseArgs = () => {
 
   const stringResult = args.reduce((result, arg) => {
     if (arg.startsWith('--')) {
-      return (result += arg + ' is ');
+      return (result += arg.slice(2) + ' is ');
     } else {
-      return (result += arg + ', \n');
+      return (result += arg + ', ');
     }
   }, '');
 
