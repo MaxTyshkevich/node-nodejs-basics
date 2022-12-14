@@ -13,7 +13,7 @@ const calculateHash = async () => {
 
   const input = createReadStream(pathFile);
   const output = process.stdout;
-  const hash = createHash('sha256').digest('hex');
+  const hash = createHash('sha256').setEncoding('hex');
 
   await pipeline(input, hash, output);
 };
