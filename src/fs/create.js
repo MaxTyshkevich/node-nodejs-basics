@@ -1,4 +1,4 @@
-import { appendFile, access, stat } from 'node:fs/promises';
+import { writeFile, access, stat } from 'node:fs/promises';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'url';
 
@@ -12,17 +12,9 @@ const create = async () => {
   const pathToFile = join(__dirname, 'files', fileName);
 
   try {
-    const isFile = await stat(pathToFile);
-
-    if (isFile) {
-      throw new Error(ErrorMessageFileExist);
-    }
+    await writeFile(pathToFile, fileData, { flag: 'wx' });
   } catch (error) {
-    if (error.message === ErrorMessageFileExist) {
-      throw error;
-    } else {
-      await appendFile(pathToFile, fileData);
-    }
+    throw new Error(ErrorMessageFileExist);
   }
 };
 
