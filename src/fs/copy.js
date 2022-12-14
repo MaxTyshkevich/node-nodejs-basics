@@ -11,9 +11,8 @@ const copy = async () => {
   const destinationPath = join(__dirname, 'files_copy');
 
   try {
-    await mkdir(destinationPath);
-
-    const filesForCopy = await readdir(folderPath);
+    const filesForCopy = await readdir(folderPath, { flag: 'r' });
+    await mkdir(destinationPath, { flag: 'wx' });
 
     for (let file of filesForCopy) {
       const filePath = join(folderPath, file);
@@ -22,10 +21,7 @@ const copy = async () => {
       await copyFile(filePath, destinationFilePath);
     }
   } catch (error) {
-    if (error.errno === -4058 || error.errno === -4075) {
-      throw new Error(ErrorMessageFileExist);
-    }
-    throw error;
+    throw new Error(ErrorMessageFileExist);
   }
 };
 
